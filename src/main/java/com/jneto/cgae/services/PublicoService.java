@@ -24,4 +24,8 @@ public class PublicoService {
 		return obj.get();
 	}
 	
+	public Publico insert(Publico obj) {
+		return repository.save(obj);
+	}
+	
 }
