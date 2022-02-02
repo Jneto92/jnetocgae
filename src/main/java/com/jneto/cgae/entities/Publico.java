@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Publico implements Serializable {
 
@@ -26,6 +28,7 @@ public class Publico implements Serializable {
 	private String email;
 	private String telefone;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "solicitante")
 	private List<Atendimento> atendimento = new ArrayList<>();
 	

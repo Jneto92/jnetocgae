@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
+
 @Entity
 public class Atendimento implements Serializable{
 	/**
@@ -21,6 +24,7 @@ public class Atendimento implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd 'T'HH:mm:ss'Z'", timezone = "GMT" )
 	private Instant moment;
 	@ManyToOne
 	@JoinColumn(name = "publico_id")
