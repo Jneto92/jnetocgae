@@ -1,12 +1,15 @@
 package com.jneto.cgae.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Publico implements Serializable {
@@ -22,6 +25,9 @@ public class Publico implements Serializable {
 	private String nome;
 	private String email;
 	private String telefone;
+	
+	@OneToMany(mappedBy = "solicitante")
+	private List<Atendimento> atendimento = new ArrayList<>();
 	
 	public Publico() {
 		
@@ -66,7 +72,11 @@ public class Publico implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+	
+	public List<Atendimento> getAtendimento() {
+		return atendimento;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -83,5 +93,7 @@ public class Publico implements Serializable {
 		Publico other = (Publico) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 }
