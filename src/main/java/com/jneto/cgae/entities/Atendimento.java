@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jneto.cgae.entities.enums.AtendimentoStatus;
 
 @Entity
 public class Atendimento implements Serializable{
@@ -25,6 +26,9 @@ public class Atendimento implements Serializable{
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd 'T'HH:mm:ss'Z'", timezone = "GMT" )
 	private Instant moment;
+	
+	private Integer atendimentoStatus;
+	
 	@ManyToOne
 	@JoinColumn(name = "publico_id")
 	private Publico solicitante;
@@ -33,10 +37,11 @@ public class Atendimento implements Serializable{
 		
 	}
 	
-	public Atendimento(Long id, Instant moment, Publico solicitante) {
+	public Atendimento(Long id, Instant moment, AtendimentoStatus atendimentoStatus, Publico solicitante) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		setAtendimentoStatus(atendimentoStatus);
 		this.solicitante = solicitante;
 	}
 
@@ -62,6 +67,17 @@ public class Atendimento implements Serializable{
 
 	public void setSolicitante(Publico solicitante) {
 		this.solicitante = solicitante;
+	}
+	
+	public AtendimentoStatus getAtendimentoStatus() {
+		return AtendimentoStatus.valueOf(atendimentoStatus);
+	}
+
+	public void setAtendimentoStatus(AtendimentoStatus atendimentoStatus) {
+		if(atendimentoStatus != null) {
+			this.atendimentoStatus = atendimentoStatus.getCode();
+		}
+		
 	}
 
 	@Override
