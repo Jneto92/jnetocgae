@@ -33,16 +33,21 @@ public class Atendimento implements Serializable{
 	@JoinColumn(name = "publico_id")
 	private Publico solicitante;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
+	
 	public Atendimento() {
 		
 	}
 	
-	public Atendimento(Long id, Instant moment, AtendimentoStatus atendimentoStatus, Publico solicitante) {
+	public Atendimento(Long id, Instant moment, AtendimentoStatus atendimentoStatus, Publico solicitante, Categoria categoria) {
 		super();
 		this.id = id;
 		this.moment = moment;
 		setAtendimentoStatus(atendimentoStatus);
 		this.solicitante = solicitante;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -78,6 +83,14 @@ public class Atendimento implements Serializable{
 			this.atendimentoStatus = atendimentoStatus.getCode();
 		}
 		
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
