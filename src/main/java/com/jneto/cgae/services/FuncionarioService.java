@@ -28,4 +28,24 @@ public class FuncionarioService {
 		return repository.save(obj);
 	}
 	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Funcionario update(Long id, Funcionario obj) {
+		@SuppressWarnings("deprecation")
+		Funcionario entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(Funcionario entity, Funcionario obj) {
+		// TODO Auto-generated method stub
+		entity.setNome(obj.getNome());
+		entity.setEmail(obj.getEmail());
+		entity.setTelefone(obj.getTelefone());
+		entity.setFuncao(obj.getFuncao());
+		entity.setMatricula(obj.getMatricula());
+		entity.setSetor(obj.getSetor());
+	}
 }

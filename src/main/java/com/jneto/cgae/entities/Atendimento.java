@@ -25,7 +25,11 @@ public class Atendimento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd 'T'HH:mm:ss'Z'", timezone = "GMT" )
-	private Instant moment;
+	private Instant momentSolicitacao;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd 'T'HH:mm:ss'Z'", timezone = "GMT" )
+	private Instant momentAtendimento;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd 'T'HH:mm:ss'Z'", timezone = "GMT" )
+	private Instant momentEncerramento;
 	
 	private Integer atendimentoStatus;
 	
@@ -48,17 +52,17 @@ public class Atendimento implements Serializable{
 	public Atendimento(Long id, Instant moment, AtendimentoStatus atendimentoStatus, Publico solicitante, Categoria categoria) {
 		super();
 		this.id = id;
-		this.moment = moment;
+		this.momentSolicitacao = moment;
 		setAtendimentoStatus(atendimentoStatus);
 		this.solicitante = solicitante;
 		this.categoria = categoria;
 	}
 
-	public Atendimento(Long id, Instant moment, Integer atendimentoStatus, Funcionario atendente) {
+	public Atendimento(Long id, Instant moment, AtendimentoStatus atendimentoStatus, Funcionario atendente) {
 		super();
 		this.id = id;
-		this.moment = moment;
-		this.atendimentoStatus = atendimentoStatus;
+		this.momentAtendimento = moment;
+		setAtendimentoStatus(atendimentoStatus);
 		this.atendente = atendente;
 	}
 
@@ -70,13 +74,7 @@ public class Atendimento implements Serializable{
 		this.id = id;
 	}
 
-	public Instant getMoment() {
-		return moment;
-	}
-
-	public void setMoment(Instant moment) {
-		this.moment = moment;
-	}
+	
 
 	public Publico getSolicitante() {
 		return solicitante;
@@ -113,6 +111,30 @@ public class Atendimento implements Serializable{
 		this.atendente = atendente;
 	}
 
+	public Instant getMomentSolicitacao() {
+		return momentSolicitacao;
+	}
+
+	public void setMomentSolicitacao(Instant momentSolicitacao) {
+		this.momentSolicitacao = momentSolicitacao;
+	}
+
+	public Instant getMomentAtendimento() {
+		return momentAtendimento;
+	}
+
+	public void setMomentAtendimento(Instant momentAtendimento) {
+		this.momentAtendimento = momentAtendimento;
+	}
+
+	public Instant getMomentEncerramento() {
+		return momentEncerramento;
+	}
+
+	public void setMomentEncerramento(Instant momentEncerramento) {
+		this.momentEncerramento = momentEncerramento;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -130,10 +152,7 @@ public class Atendimento implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Atendimento [id=" + id + ", moment=" + moment + ", solicitante=" + solicitante + "]";
-	} 
+	
 	
 	
 }

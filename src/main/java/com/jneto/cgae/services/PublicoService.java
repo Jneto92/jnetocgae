@@ -28,4 +28,21 @@ public class PublicoService {
 		return repository.save(obj);
 	}
 	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Publico update(Long id, Publico obj) {
+		@SuppressWarnings("deprecation")
+		Publico entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(Publico entity, Publico obj) {
+		// TODO Auto-generated method stub
+		entity.setNome(obj.getNome());
+		entity.setEmail(obj.getEmail());
+		entity.setTelefone(obj.getTelefone());
+	}
 }
