@@ -3,6 +3,8 @@ package com.jneto.cgae.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,10 +45,15 @@ public class FuncionarioService {
 	}
 	
 	public Funcionario update(Long id, Funcionario obj) {
-		@SuppressWarnings("deprecation")
-		Funcionario entity = repository.getOne(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			@SuppressWarnings("deprecation")
+			Funcionario entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Funcionario entity, Funcionario obj) {

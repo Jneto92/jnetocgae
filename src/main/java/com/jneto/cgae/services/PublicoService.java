@@ -3,6 +3,8 @@ package com.jneto.cgae.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,7 +36,7 @@ public class PublicoService {
 	
 	public void delete(Long id) {
 		try {
-		repository.deleteById(id);
+			repository.deleteById(id);
 		}catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
@@ -43,10 +45,15 @@ public class PublicoService {
 	}
 	
 	public Publico update(Long id, Publico obj) {
-		@SuppressWarnings("deprecation")
-		Publico entity = repository.getOne(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			@SuppressWarnings("deprecation")
+			Publico entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Publico entity, Publico obj) {
