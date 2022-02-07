@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jneto.cgae.entities.Categoria;
 import com.jneto.cgae.repositories.CategoriaRepository;
+import com.jneto.cgae.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -21,7 +22,7 @@ public class CategoriaService {
 	public Categoria findById(Long id) {
 		Optional<Categoria> obj = repository.findById(id);
 		
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	public Categoria insert(Categoria obj) {

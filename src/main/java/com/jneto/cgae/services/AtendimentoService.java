@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jneto.cgae.entities.Atendimento;
 import com.jneto.cgae.repositories.AtendimentoRepository;
+import com.jneto.cgae.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class AtendimentoService {
@@ -21,7 +22,7 @@ public class AtendimentoService {
 	public Atendimento findById(Long id) {
 		Optional<Atendimento> obj = repository.findById(id);
 		
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	public Atendimento insert (Atendimento obj) {
 		return repository.save(obj);

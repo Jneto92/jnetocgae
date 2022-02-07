@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jneto.cgae.entities.Publico;
 import com.jneto.cgae.repositories.PublicoRepository;
+import com.jneto.cgae.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PublicoService {
@@ -21,7 +22,7 @@ public class PublicoService {
 	public Publico findById(Long id) {
 		Optional<Publico> obj = repository.findById(id);
 		
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	public Publico insert(Publico obj) {
