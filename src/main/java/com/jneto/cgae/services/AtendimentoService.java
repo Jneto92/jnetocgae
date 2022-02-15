@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.jneto.cgae.entities.Atendimento;
+import com.jneto.cgae.entities.Categoria;
 import com.jneto.cgae.repositories.AtendimentoRepository;
 import com.jneto.cgae.services.exceptions.DatabaseException;
 import com.jneto.cgae.services.exceptions.ResourceNotFoundException;
@@ -24,11 +25,23 @@ public class AtendimentoService {
 		return repository.findAll();
 	}
 	
+	public List<Atendimento> findByCategoria(Categoria cat){
+		List<Atendimento> obj = repository.findByCategoria(cat);
+		if (obj == null) {
+			throw new ResourceNotFoundException(cat);
+		}else {
+			return obj;
+		}
+		
+			
+	}
+	
 	public Atendimento findById(Long id) {
 		Optional<Atendimento> obj = repository.findById(id);
 		
 		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
+	
 	public Atendimento insert (Atendimento obj) {
 		return repository.save(obj);
 	}

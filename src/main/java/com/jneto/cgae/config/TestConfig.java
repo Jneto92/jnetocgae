@@ -53,14 +53,15 @@ public class TestConfig implements CommandLineRunner{
 		Atendimento o1 = new Atendimento(null, Instant.parse("2019-06-20T19:53:07Z"), AtendimentoStatus.WAITING, u1, cat1);
 		Atendimento o2 = new Atendimento(null, Instant.parse("2019-07-21T03:42:10Z"), AtendimentoStatus.WAITING, u2, cat2);
 		Atendimento o3 = new Atendimento(null, Instant.parse("2019-07-22T15:21:22Z"), AtendimentoStatus.WAITING, u1, cat3); 
-		
+		Atendimento o4 = new Atendimento(null, Instant.parse("2019-07-22T15:21:22Z"), AtendimentoStatus.WAITING, u1, cat2);
 		
 		
 		publicoRepository.saveAll(Arrays.asList(u1, u2));
 		categoriaRepository.saveAll(Arrays.asList(cat1 , cat2, cat3, cat4));
 		funcionarioRepository.saveAll(Arrays.asList(f1, f2));
-		atendimentoRepository.saveAll(Arrays.asList(o1, o2, o3));
+		atendimentoRepository.saveAll(Arrays.asList(o1, o2, o3, o4));
 		
+		//System.out.println(atendimentoRepository.findByCategoria(cat1.getId()));
 		
 	}
 	

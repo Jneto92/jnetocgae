@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jneto.cgae.entities.Atendimento;
+import com.jneto.cgae.entities.Categoria;
 import com.jneto.cgae.services.AtendimentoService;
 
 @RestController
@@ -27,6 +28,12 @@ public class AtendimentoResource {
 	@GetMapping
 	public ResponseEntity<List<Atendimento>> findAll(){
 		List<Atendimento> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value = "/categoria/{cat}")
+	public ResponseEntity<List<Atendimento>> findByCategoria(@PathVariable Categoria cat){
+		List<Atendimento> list = service.findByCategoria(cat);
 		return ResponseEntity.ok().body(list);
 	}
 	
